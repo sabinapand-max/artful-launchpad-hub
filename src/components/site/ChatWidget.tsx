@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { submitLead } from "@/lib/leads.functions";
+
+
 
 export function ChatWidget() {
   const { t } = useI18n();
