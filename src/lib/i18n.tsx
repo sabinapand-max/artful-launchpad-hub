@@ -74,6 +74,9 @@ const dictionaries: Record<Lang, Dict> = {
     "chat.send": "Trimite mesajul",
     "chat.sent": "Mulțumim! Revenim în cel mai scurt timp.",
     "chat.open": "Discută cu noi",
+    "chat.sending": "Se trimite…",
+    "chat.error": "Nu am putut trimite mesajul. Încearcă din nou.",
+
   },
   en: {
     "nav.services": "Services",
