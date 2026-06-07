@@ -111,13 +111,27 @@ export function ChatWidget() {
                 required
               />
             </div>
+            {errorMsg && (
+              <p className="text-xs text-destructive" role="alert">
+                {errorMsg}
+              </p>
+            )}
             <button
               type="submit"
-              disabled={!valid}
+              disabled={!valid || sending}
               className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
             >
-              {t("chat.send")} <Send className="size-4" />
+              {sending ? (
+                <>
+                  {t("chat.sending")} <Loader2 className="size-4 animate-spin" />
+                </>
+              ) : (
+                <>
+                  {t("chat.send")} <Send className="size-4" />
+                </>
+              )}
             </button>
+
           </form>
         )}
       </div>
