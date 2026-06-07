@@ -147,6 +147,9 @@ const dictionaries: Record<Lang, Dict> = {
     "chat.send": "Send message",
     "chat.sent": "Thanks! We'll get back to you shortly.",
     "chat.open": "Chat with us",
+    "chat.sending": "Sending…",
+    "chat.error": "Couldn't send your message. Please try again.",
+
   },
 };
 
