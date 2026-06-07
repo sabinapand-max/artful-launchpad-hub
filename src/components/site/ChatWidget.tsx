@@ -1,36 +1,57 @@
 import { useState } from "react";
-import { MessageCircle, X, Send } from "lucide-react";
+import { useServerFn } from "@tanstack/react-start";
+import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { submitLead } from "@/lib/leads.functions";
+
+
 
 export function ChatWidget() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
+  const submit = useServerFn(submitLead);
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [contact, setContact] = useState("");
   const [services, setServices] = useState("");
 
   const valid = contact.trim().length >= 5 && services.trim().length >= 2;
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!valid) return;
-    // Persistence not requested — store locally as a friendly fallback.
+    if (!valid || sending) return;
+    setSending(true);
+    setErrorMsg(null);
     try {
-      const prev = JSON.parse(localStorage.getItem("leads") ?? "[]");
-      prev.push({ contact, services, at: new Date().toISOString() });
-      localStorage.setItem("leads", JSON.stringify(prev));
-    } catch {
-      /* ignore */
+      const res = await submit({
+        data: {
+          contact: contact.trim(),
+          services: services.trim(),
+          lang,
+          userAgent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
+        },
+      });
+      if (!res.ok) {
+        setErrorMsg(res.error);
+        return;
+      }
+      setSent(true);
+      setTimeout(() => {
+        setSent(false);
+        setContact("");
+        setServices("");
+        setOpen(false);
+      }, 2400);
+    } catch (err) {
+      console.error(err);
+      setErrorMsg(t("chat.error"));
+    } finally {
+      setSending(false);
     }
-    setSent(true);
-    setTimeout(() => {
-      setSent(false);
-      setContact("");
-      setServices("");
-      setOpen(false);
-    }, 2400);
   }
+
 
   return (
     <>
@@ -90,13 +111,27 @@ export function ChatWidget() {
                 required
               />
             </div>
+            {errorMsg && (
+              <p className="text-xs text-destructive" role="alert">
+                {errorMsg}
+              </p>
+            )}
             <button
               type="submit"
-              disabled={!valid}
+              disabled={!valid || sending}
               className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground transition-opacity hover:opacity-90 disabled:opacity-40"
             >
-              {t("chat.send")} <Send className="size-4" />
+              {sending ? (
+                <>
+                  {t("chat.sending")} <Loader2 className="size-4 animate-spin" />
+                </>
+              ) : (
+                <>
+                  {t("chat.send")} <Send className="size-4" />
+                </>
+              )}
             </button>
+
           </form>
         )}
       </div>
