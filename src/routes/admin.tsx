@@ -48,6 +48,15 @@ function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const saved = typeof window !== "undefined" ? sessionStorage.getItem(PW_KEY) : null;
+    if (saved) {
+      setPassword(saved);
+      void load(saved);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function load(pw = password) {
     setLoading(true);
     setError(null);
@@ -56,9 +65,11 @@ function AdminPage() {
       if (!res.ok) {
         setError(res.error);
         setAuthed(false);
+        sessionStorage.removeItem(PW_KEY);
       } else {
         setRows(res.rows);
         setAuthed(true);
+        sessionStorage.setItem(PW_KEY, pw);
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Request failed");
