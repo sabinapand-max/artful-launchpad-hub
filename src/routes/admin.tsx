@@ -174,17 +174,27 @@ function AdminPage() {
                 <TableHead>Lang</TableHead>
                 <TableHead>Contact</TableHead>
                 <TableHead>Services</TableHead>
+                <TableHead className="w-16" />
               </TableRow>
             </TableHeader>
             <TableBody>
               {filtered.map((r) => (
-                <TableRow key={r.id}>
+                <TableRow key={r.id} className="cursor-pointer">
                   <TableCell className="whitespace-nowrap text-xs text-muted-foreground">
                     {new Date(r.created_at).toLocaleString()}
                   </TableCell>
                   <TableCell className="text-xs uppercase">{r.lang ?? "—"}</TableCell>
                   <TableCell className="text-sm">{r.contact}</TableCell>
-                  <TableCell className="max-w-md text-sm">{r.services}</TableCell>
+                  <TableCell className="max-w-md truncate text-sm">{r.services}</TableCell>
+                  <TableCell className="text-right">
+                    <Link
+                      to="/admin/$leadId"
+                      params={{ leadId: r.id }}
+                      className="text-xs font-medium text-primary underline-offset-4 hover:underline"
+                    >
+                      View
+                    </Link>
+                  </TableCell>
                 </TableRow>
               ))}
               {!filtered.length && (
