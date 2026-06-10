@@ -199,7 +199,7 @@ function AdminPage() {
               ))}
               {!filtered.length && (
                 <TableRow>
-                  <TableCell colSpan={4} className="py-8 text-center text-sm text-muted-foreground">
+                  <TableCell colSpan={5} className="py-8 text-center text-sm text-muted-foreground">
                     No leads yet.
                   </TableCell>
                 </TableRow>
