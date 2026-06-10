@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchLeads, type LeadRow } from "@/lib/admin.functions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
+const PW_KEY = "admin_pw";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -46,6 +48,15 @@ function AdminPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const saved = typeof window !== "undefined" ? sessionStorage.getItem(PW_KEY) : null;
+    if (saved) {
+      setPassword(saved);
+      void load(saved);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   async function load(pw = password) {
     setLoading(true);
     setError(null);
@@ -54,9 +65,11 @@ function AdminPage() {
       if (!res.ok) {
         setError(res.error);
         setAuthed(false);
+        sessionStorage.removeItem(PW_KEY);
       } else {
         setRows(res.rows);
         setAuthed(true);
+        sessionStorage.setItem(PW_KEY, pw);
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : "Request failed");
@@ -161,22 +174,32 @@ function AdminPage() {
                 <TableHead>Lang</TableHead>
                 <TableHead>Contact</TableHead>
                 <TableHead>Services</TableHead>
+                <TableHead className="w-16" />
               </TableRow>
             </TableHeader>
             <TableBody>
               {filtered.map((r) => (
-                <TableRow key={r.id}>
+                <TableRow key={r.id} className="cursor-pointer">
                   <TableCell className="whitespace-nowrap text-xs text-muted-foreground">
                     {new Date(r.created_at).toLocaleString()}
                   </TableCell>
                   <TableCell className="text-xs uppercase">{r.lang ?? "—"}</TableCell>
                   <TableCell className="text-sm">{r.contact}</TableCell>
-                  <TableCell className="max-w-md text-sm">{r.services}</TableCell>
+                  <TableCell className="max-w-md truncate text-sm">{r.services}</TableCell>
+                  <TableCell className="text-right">
+                    <Link
+                      to="/admin/$leadId"
+                      params={{ leadId: r.id }}
+                      className="text-xs font-medium text-primary underline-offset-4 hover:underline"
+                    >
+                      View
+                    </Link>
+                  </TableCell>
                 </TableRow>
               ))}
               {!filtered.length && (
                 <TableRow>
-                  <TableCell colSpan={4} className="py-8 text-center text-sm text-muted-foreground">
+                  <TableCell colSpan={5} className="py-8 text-center text-sm text-muted-foreground">
                     No leads yet.
                   </TableCell>
                 </TableRow>
