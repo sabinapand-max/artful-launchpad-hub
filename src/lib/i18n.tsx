@@ -9,6 +9,7 @@ const dictionaries: Record<Lang, Dict> = {
     "nav.services": "Servicii",
     "nav.work": "Proiecte",
     "nav.process": "Proces",
+    "nav.pricing": "Prețuri",
     "nav.contact": "Contact",
     "nav.cta": "Începe proiectul",
 
