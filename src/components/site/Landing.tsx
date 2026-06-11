@@ -208,7 +208,11 @@ export function Landing() {
             <span className="font-display text-base text-foreground">Atelier</span>
             <span className="ml-3">© {new Date().getFullYear()}. {t("footer.rights")}</span>
           </div>
-          <p>{t("footer.made")}</p>
+          <div className="flex items-center gap-4">
+            <p>{t("footer.made")}</p>
+            <a href="/admin" className="opacity-60 hover:opacity-100 hover:text-foreground transition-opacity">Admin</a>
+          </div>
+
         </div>
       </footer>
 
