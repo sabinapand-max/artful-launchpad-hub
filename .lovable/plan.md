@@ -1,44 +1,20 @@
-## Goal
-1. Mirror every chat-widget submission into your Notion leads database (keep saving to the Cloud DB as backup).
-2. Make the admin leads page discoverable so you can actually open it.
+## Add Pricing section to landing page
 
-## What I'll do
+Add a new "Pricing" section between **Process** and **For whom** on the landing page, with 4 tiers.
 
-### 1. Link your Notion connection to this project
-Your workspace already has "sabina's Notion" connected, but it isn't linked to this project yet. I'll link it so `NOTION_API_KEY` becomes available to the server. (You'll get a one-click confirm prompt.)
+### Tiers
+1. **Start — €99** · One page, Google Business setup, basic SEO
+2. **Prezență — €299** · 3-5 pages, full SEO, AIO, booking integration
+3. **Studio — €599** · Full site + automation + monthly support
+4. **Automatizare — €800–1000** · Custom automation workflows, Make/Zapier, lead systems
 
-### 2. Detect your Notion database
-Your link is `…/p/3781f59434ad80f89b60c249a36b5ec0?v=…` — that's a page-embedded database. After the connector is linked, I'll call the Notion API through Lovable's gateway to:
-- Resolve the database ID (`3781f59434ad80f89b60c249a36b5ec0` reformatted as a UUID).
-- Read its schema (property names + types) so I map fields correctly to whatever columns you created (Title/Contact/Services/Language/Source/Date), without guessing.
+The **Studio** tier will be highlighted as "Most popular" (accent border).
+Each card has: tier name, price, short description, and a CTA button that opens the chat widget (same behavior as the hero CTA).
 
-**Important on your side:** in Notion, open the database → `•••` menu → "Connections" → add the same Notion integration that's connected to Lovable. Without this the API returns 404 on the database. If the integration isn't shared, the next step will fail and I'll surface a clear error telling you to share it.
+### Files to change
+- **`src/components/site/Landing.tsx`** — add a `<section id="pricing">` matching existing typographic style (font-display headlines, eyebrow label, grid of bordered cards like Services).
+- **`src/lib/i18n.tsx`** — add `pricing.*` keys in both `ro` and `en` dictionaries (eyebrow, title, tier names/prices/descriptions, CTA label). Romanian copy stays as provided; English mirrors meaning (e.g. "Presence", "Automation").
+- **`src/components/site/Landing.tsx` nav** — add a "Prețuri / Pricing" link in the header nav pointing to `#pricing`.
 
-### 3. Add a Notion sync helper
-New file `src/lib/notion.server.ts` (server-only, never bundled to client):
-- `createLeadPage({ contact, services, lang, userAgent, createdAt })`
-- Calls `POST /v1/pages` via the connector gateway with `parent.database_id` and a `properties` payload built from the schema discovered in step 2.
-- Wrapped in try/catch — Notion failures are logged but do NOT block the database insert (your leads are never lost if Notion is down).
-
-### 4. Hook it into the existing submit flow
-Edit `src/lib/leads.functions.ts`:
-- After the successful `supabaseAdmin.from("leads").insert(...)`, fire-and-await `createLeadPage(...)`.
-- Same return shape; user still sees the "sent" confirmation.
-
-### 5. Fix admin discoverability
-You said "I don't see it at all, not sure of the location" — the admin page does exist at `/admin` but there's no link to it anywhere. I'll:
-- Add a small, unobtrusive "Admin" link in the site footer (or a `/admin` reminder note in this reply if you'd rather keep it hidden).
-- The page is already password-protected with the `ADMIN_PASSWORD` secret you set, so exposing the link is safe.
-
-### 6. Verify end-to-end
-- Submit a test lead from the chat widget on the preview.
-- Confirm: row in the `leads` table (Cloud) AND new page in your Notion database.
-- Confirm `/admin` shows the new row and CSV export works.
-
-## Files touched
-- `src/lib/notion.server.ts` *(new)*
-- `src/lib/leads.functions.ts` *(call Notion after insert)*
-- `src/components/site/Landing.tsx` *(footer admin link — optional, ask first)*
-
-## Open question
-Want the small "Admin" link in the footer, or keep `/admin` unlinked and just remember the URL?
+### Out of scope
+No checkout/Stripe wiring — the CTA only opens the existing chat widget so leads still flow to your database + Notion. Let me know if you want real checkout later.
