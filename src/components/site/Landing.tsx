@@ -31,6 +31,7 @@ export function Landing() {
         <nav className="hidden items-center gap-7 text-sm md:flex">
           <a href="#services" className="text-muted-foreground hover:text-foreground">{t("nav.services")}</a>
           <a href="#process" className="text-muted-foreground hover:text-foreground">{t("nav.process")}</a>
+          <a href="#pricing" className="text-muted-foreground hover:text-foreground">{t("nav.pricing")}</a>
           <a href="#contact" className="text-muted-foreground hover:text-foreground">{t("nav.contact")}</a>
         </nav>
         <div className="flex items-center gap-3">
