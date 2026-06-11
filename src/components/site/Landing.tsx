@@ -154,6 +154,63 @@ export function Landing() {
         </div>
       </section>
 
+      {/* PRICING */}
+      <section id="pricing" className="mx-auto max-w-7xl px-6 py-28 md:py-40">
+        <div className="mb-16 grid items-end gap-6 md:grid-cols-12">
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground md:col-span-3">
+            {t("pricing.eyebrow")}
+          </p>
+          <h2 className="font-display text-5xl leading-[1.05] tracking-tight md:col-span-9 md:text-7xl">
+            {t("pricing.title")}
+          </h2>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {(["t1", "t2", "t3", "t4"] as const).map((k) => {
+            const popular = k === "t3";
+            return (
+              <div
+                key={k}
+                className={
+                  "relative flex flex-col rounded-2xl border bg-card p-7 transition-colors " +
+                  (popular
+                    ? "border-accent shadow-lg shadow-accent/10"
+                    : "border-border hover:bg-secondary")
+                }
+              >
+                {popular && (
+                  <span className="absolute -top-3 left-7 rounded-full bg-accent px-3 py-1 text-[10px] font-medium uppercase tracking-wider text-accent-foreground">
+                    {t("pricing.popular")}
+                  </span>
+                )}
+                <h3 className="font-display text-2xl">{t(`pricing.${k}.name`)}</h3>
+                <p className="mt-3 font-display text-4xl tracking-tight">
+                  {t(`pricing.${k}.price`)}
+                </p>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                  {t(`pricing.${k}.desc`)}
+                </p>
+                <a
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector<HTMLButtonElement>("[aria-label]")?.click();
+                  }}
+                  className={
+                    "mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-opacity hover:opacity-90 " +
+                    (popular
+                      ? "bg-accent text-accent-foreground"
+                      : "bg-foreground text-background")
+                  }
+                >
+                  {t("pricing.cta")} <ArrowUpRight className="size-4" />
+                </a>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       {/* FOR WHOM */}
       <section className="mx-auto max-w-7xl px-6 py-28 md:py-40">
         <div className="mb-12 grid items-end gap-6 md:grid-cols-12">
