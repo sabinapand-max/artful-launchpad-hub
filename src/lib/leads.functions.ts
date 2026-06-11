@@ -22,5 +22,22 @@ export const submitLead = createServerFn({ method: "POST" })
       console.error("[submitLead] insert failed:", error);
       return { ok: false as const, error: "Failed to save your message. Please try again." };
     }
+
+    // Mirror to Notion. Failures are logged but do not block the user — the
+    // lead is already safely stored in the database.
+    try {
+      const { createNotionLeadPage } = await import("./notion.server");
+      await createNotionLeadPage({
+        contact: data.contact,
+        services: data.services,
+        lang: data.lang,
+        userAgent: data.userAgent,
+        createdAt: new Date().toISOString(),
+      });
+    } catch (notionErr) {
+      console.error("[submitLead] notion sync failed:", notionErr);
+    }
+
     return { ok: true as const };
   });
+
