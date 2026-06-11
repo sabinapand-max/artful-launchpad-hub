@@ -100,6 +100,7 @@ const dictionaries: Record<Lang, Dict> = {
     "nav.services": "Services",
     "nav.work": "Work",
     "nav.process": "Process",
+    "nav.pricing": "Pricing",
     "nav.contact": "Contact",
     "nav.cta": "Start a project",
 
