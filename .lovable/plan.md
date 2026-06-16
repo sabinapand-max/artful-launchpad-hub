@@ -1,20 +1,19 @@
-## Add Pricing section to landing page
+## Add PayPal as secondary payment option on pricing tiers
 
-Add a new "Pricing" section between **Process** and **For whom** on the landing page, with 4 tiers.
+Keep the existing chat CTA as the primary action on each pricing card (so leads still flow to database + Notion), and add a small **"Pay via PayPal"** link underneath each one.
 
-### Tiers
-1. **Start — €99** · One page, Google Business setup, basic SEO
-2. **Prezență — €299** · 3-5 pages, full SEO, AIO, booking integration
-3. **Studio — €599** · Full site + automation + monthly support
-4. **Automatizare — €800–1000** · Custom automation workflows, Make/Zapier, lead systems
-
-The **Studio** tier will be highlighted as "Most popular" (accent border).
-Each card has: tier name, price, short description, and a CTA button that opens the chat widget (same behavior as the hero CTA).
+### Behavior per tier
+- **Start (€99)** → PayPal link with amount 99
+- **Prezență (€299)** → PayPal link with amount 299
+- **Studio (€599)** → PayPal link with amount 599
+- **Automatizare (€800+)** → PayPal link with amount 800; tier description/price updated to show "de la €800" / "from €800" so the range still reads correctly
 
 ### Files to change
-- **`src/components/site/Landing.tsx`** — add a `<section id="pricing">` matching existing typographic style (font-display headlines, eyebrow label, grid of bordered cards like Services).
-- **`src/lib/i18n.tsx`** — add `pricing.*` keys in both `ro` and `en` dictionaries (eyebrow, title, tier names/prices/descriptions, CTA label). Romanian copy stays as provided; English mirrors meaning (e.g. "Presence", "Automation").
-- **`src/components/site/Landing.tsx` nav** — add a "Prețuri / Pricing" link in the header nav pointing to `#pricing`.
+- **`src/components/site/Landing.tsx`** — under each tier's existing chat button, add a small secondary `<a>` to `https://paypal.me/PLACEHOLDER/{amount}EUR` opening in a new tab. Styled as a muted text link (not a button) so the chat CTA stays primary.
+- **`src/lib/i18n.tsx`** — add `pricing.paypal` key ("Plătește cu PayPal" / "Pay with PayPal"). Update `pricing.t4.price` to "de la €800" / "from €800".
+
+### Placeholder handle
+I'll use `https://paypal.me/PLACEHOLDER/{amount}EUR` as a stand-in. After you test the layout, send me your PayPal.me handle (or a different PayPal URL — hosted button, invoice link, etc.) and I'll swap it in one line.
 
 ### Out of scope
-No checkout/Stripe wiring — the CTA only opens the existing chat widget so leads still flow to your database + Notion. Let me know if you want real checkout later.
+No real checkout integration (Stripe/Paddle) — PayPal.me is a plain redirect, so there's no automatic confirmation back to your database. The chat path remains the source of truth for leads.
