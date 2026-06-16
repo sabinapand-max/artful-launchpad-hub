@@ -54,6 +54,7 @@ const dictionaries: Record<Lang, Dict> = {
     "pricing.title": "Pachete clare. Fără surprize.",
     "pricing.popular": "Cel mai ales",
     "pricing.cta": "Alege pachetul",
+    "pricing.paypal": "Plătește cu PayPal",
     "pricing.t1.name": "Start",
     "pricing.t1.price": "€99",
     "pricing.t1.desc": "O pagină, configurare Google Business, SEO de bază.",
@@ -64,7 +65,7 @@ const dictionaries: Record<Lang, Dict> = {
     "pricing.t3.price": "€599",
     "pricing.t3.desc": "Site complet + automatizări + suport lunar.",
     "pricing.t4.name": "Automatizare",
-    "pricing.t4.price": "€800–1000",
+    "pricing.t4.price": "de la €800",
     "pricing.t4.desc": "Fluxuri custom, Make/Zapier, sisteme de lead-uri.",
 
     "for.eyebrow": "— Pentru cine",
@@ -145,6 +146,7 @@ const dictionaries: Record<Lang, Dict> = {
     "pricing.title": "Clear packages. No surprises.",
     "pricing.popular": "Most popular",
     "pricing.cta": "Choose plan",
+    "pricing.paypal": "Pay with PayPal",
     "pricing.t1.name": "Start",
     "pricing.t1.price": "€99",
     "pricing.t1.desc": "One page, Google Business setup, basic SEO.",
@@ -155,7 +157,7 @@ const dictionaries: Record<Lang, Dict> = {
     "pricing.t3.price": "€599",
     "pricing.t3.desc": "Full site + automation + monthly support.",
     "pricing.t4.name": "Automation",
-    "pricing.t4.price": "€800–1000",
+    "pricing.t4.price": "from €800",
     "pricing.t4.desc": "Custom workflows, Make/Zapier, lead systems.",
 
     "for.eyebrow": "— For whom",
