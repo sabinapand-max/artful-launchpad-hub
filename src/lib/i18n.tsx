@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 
-export type Lang = "ro" | "en";
+export type Lang = "ro" | "en" | "fr";
 
 type Dict = Record<string, string>;
 
@@ -188,6 +188,97 @@ const dictionaries: Record<Lang, Dict> = {
     "chat.sending": "Sending…",
     "chat.error": "Couldn't send your message. Please try again.",
 
+  },
+  fr: {
+    "nav.services": "Services",
+    "nav.work": "Projets",
+    "nav.process": "Processus",
+    "nav.pricing": "Tarifs",
+    "nav.contact": "Contact",
+    "nav.cta": "Démarrer un projet",
+
+    "hero.eyebrow": "Studio digital · 2026",
+    "hero.title1": "Des sites qui",
+    "hero.title2": "parlent",
+    "hero.title3": "pour vous.",
+    "hero.subtitle":
+      "Nous créons des expériences web raffinées pour entrepreneurs, freelances et créatifs — pensées pour les humains, Google et l'IA.",
+    "hero.cta": "Parlez-nous de votre projet",
+    "hero.secondary": "Voir les services",
+
+    "marquee": "Branding · Web Design · Développement · SEO · AIO · Copywriting · Maintenance · ",
+
+    "services.eyebrow": "— Services",
+    "services.title": "Ce que nous construisons ensemble.",
+    "services.s1.title": "Sites vitrines",
+    "services.s1.desc": "Conçus autour de votre identité, livrés vite, sans templates.",
+    "services.s2.title": "Boutiques en ligne",
+    "services.s2.desc": "Plateformes e-commerce simples à gérer, prêtes à vendre.",
+    "services.s3.title": "SEO classique",
+    "services.s3.desc": "Apparaissez là où vos clients cherchent — naturellement.",
+    "services.s4.title": "AIO — Optimisation IA",
+    "services.s4.desc": "Soyez cité par ChatGPT, Perplexity et les assistants de demain.",
+    "services.s5.title": "Identité visuelle",
+    "services.s5.desc": "Logo, palette, typographie — une voix visuelle cohérente.",
+    "services.s6.title": "Maintenance & support",
+    "services.s6.desc": "Votre site reste rapide, sûr et à jour. On s'en occupe.",
+
+    "process.eyebrow": "— Processus",
+    "process.title": "Quatre étapes. Zéro bureaucratie.",
+    "process.p1.t": "Conversation",
+    "process.p1.d": "Dites-nous ce que vous voulez construire. On écoute.",
+    "process.p2.t": "Stratégie",
+    "process.p2.d": "On définit audience, message et architecture.",
+    "process.p3.t": "Design & code",
+    "process.p3.d": "On construit avec soin, jusqu'au moindre détail.",
+    "process.p4.t": "Lancement & croissance",
+    "process.p4.d": "On vous aide à grandir après le lancement.",
+
+    "pricing.eyebrow": "— Tarifs",
+    "pricing.title": "Forfaits clairs. Aucune surprise.",
+    "pricing.popular": "Le plus choisi",
+    "pricing.cta": "Choisir le forfait",
+    "pricing.paypal": "Payer avec PayPal",
+    "pricing.t1.name": "Start",
+    "pricing.t1.price": "€99",
+    "pricing.t1.desc": "Une page, configuration Google Business, SEO de base.",
+    "pricing.t2.name": "Présence",
+    "pricing.t2.price": "€299",
+    "pricing.t2.desc": "3–5 pages, SEO complet, AIO, intégration réservations.",
+    "pricing.t3.name": "Studio",
+    "pricing.t3.price": "€599",
+    "pricing.t3.desc": "Site complet + automatisations + support mensuel.",
+    "pricing.t4.name": "Automatisation",
+    "pricing.t4.price": "à partir de €800",
+    "pricing.t4.desc": "Flux sur mesure, Make/Zapier, systèmes de leads.",
+
+    "for.eyebrow": "— Pour qui",
+    "for.title": "Nous travaillons avec des gens qui construisent du concret.",
+    "for.1": "Entrepreneurs en démarrage",
+    "for.2": "Freelances & consultants",
+    "for.3": "Cabinets & cliniques",
+    "for.4": "Artistes, photographes, architectes",
+    "for.5": "Restaurants & cafés",
+    "for.6": "Commerces locaux",
+
+    "cta.title": "Créons quelque chose de mémorable.",
+    "cta.desc": "Réponse sous 24h. Le premier échange est gratuit.",
+    "cta.button": "Ouvrir le chat",
+
+    "footer.rights": "Tous droits réservés.",
+    "footer.made": "Fait avec soin en Roumanie.",
+
+    "chat.title": "Bonjour ! 👋",
+    "chat.subtitle": "Dites-nous comment on peut aider.",
+    "chat.email": "Email ou téléphone",
+    "chat.emailPh": "nom@exemple.fr",
+    "chat.services": "Quels services vous intéressent ?",
+    "chat.servicesPh": "Ex : site vitrine + SEO",
+    "chat.send": "Envoyer le message",
+    "chat.sent": "Merci ! On revient vers vous très vite.",
+    "chat.open": "Discuter avec nous",
+    "chat.sending": "Envoi…",
+    "chat.error": "Impossible d'envoyer le message. Réessayez.",
   },
 };
 

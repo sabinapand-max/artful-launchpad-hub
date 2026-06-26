@@ -5,7 +5,7 @@ export function LangToggle() {
   const { lang, setLang } = useI18n();
   return (
     <div className="inline-flex items-center gap-1 rounded-full border border-border bg-card/60 px-1 py-1 text-xs backdrop-blur">
-      {(["ro", "en"] as const).map((l) => (
+      {(["ro", "en", "fr"] as const).map((l) => (
         <button
           key={l}
           onClick={() => setLang(l)}
