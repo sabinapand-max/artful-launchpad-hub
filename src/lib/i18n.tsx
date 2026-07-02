@@ -293,7 +293,7 @@ const I18nContext = createContext<I18nCtx | null>(null);
 const STORAGE_KEY = "atelier.lang";
 
 function detectInitialLang(): Lang {
-  if (typeof window === "undefined") return "ro";
+  if (typeof window === "undefined") return "en";
   try {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === "ro" || stored === "en" || stored === "fr") return stored;
@@ -301,8 +301,7 @@ function detectInitialLang(): Lang {
   const nav = (navigator.language || "").toLowerCase();
   if (nav.startsWith("fr")) return "fr";
   if (nav.startsWith("ro")) return "ro";
-  if (nav.startsWith("en")) return "en";
-  return "ro";
+  return "en";
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
