@@ -290,8 +290,27 @@ interface I18nCtx {
 
 const I18nContext = createContext<I18nCtx | null>(null);
 
+const STORAGE_KEY = "atelier.lang";
+
+function detectInitialLang(): Lang {
+  if (typeof window === "undefined") return "ro";
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (stored === "ro" || stored === "en" || stored === "fr") return stored;
+  } catch {}
+  const nav = (navigator.language || "").toLowerCase();
+  if (nav.startsWith("fr")) return "fr";
+  if (nav.startsWith("ro")) return "ro";
+  if (nav.startsWith("en")) return "en";
+  return "ro";
+}
+
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>("ro");
+  const [lang, setLangState] = useState<Lang>(detectInitialLang);
+  const setLang = (l: Lang) => {
+    setLangState(l);
+    try { window.localStorage.setItem(STORAGE_KEY, l); } catch {}
+  };
   const t = (key: string) => dictionaries[lang][key] ?? key;
   return <I18nContext.Provider value={{ lang, setLang, t }}>{children}</I18nContext.Provider>;
 }
