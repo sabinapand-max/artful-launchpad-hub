@@ -82,7 +82,6 @@ const dictionaries: Record<Lang, Dict> = {
     "cta.button": "Deschide chat-ul",
 
     "footer.rights": "Toate drepturile rezervate.",
-    "footer.made": "Realizat cu grijă în România.",
 
     "chat.title": "Salut! 👋",
     "chat.subtitle": "Spune-ne cum te putem ajuta.",
@@ -174,7 +173,6 @@ const dictionaries: Record<Lang, Dict> = {
     "cta.button": "Open the chat",
 
     "footer.rights": "All rights reserved.",
-    "footer.made": "Made with care in Romania.",
 
     "chat.title": "Hi there! 👋",
     "chat.subtitle": "Tell us how we can help.",
@@ -266,7 +264,6 @@ const dictionaries: Record<Lang, Dict> = {
     "cta.button": "Ouvrir le chat",
 
     "footer.rights": "Tous droits réservés.",
-    "footer.made": "Fait avec soin en Roumanie.",
 
     "chat.title": "Bonjour ! 👋",
     "chat.subtitle": "Dites-nous comment on peut aider.",
