@@ -277,10 +277,23 @@ export function Landing() {
             <span className="ml-3">© {new Date().getFullYear()}. {t("footer.rights")}</span>
           </div>
           <div className="flex items-center gap-4">
-            <p>{t("footer.made")}</p>
+            <a
+              href="mailto:indigoatelier@zohomail.eu"
+              className="inline-flex items-center gap-1.5 opacity-80 hover:opacity-100 hover:text-foreground transition-opacity"
+            >
+              <Mail className="size-3.5" /> indigoatelier@zohomail.eu
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 opacity-80 hover:opacity-100 hover:text-foreground transition-opacity"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="size-3.5" /> LinkedIn
+            </a>
             <a href="/admin" className="opacity-60 hover:opacity-100 hover:text-foreground transition-opacity">Admin</a>
           </div>
-
         </div>
       </footer>
 
