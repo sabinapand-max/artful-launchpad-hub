@@ -286,7 +286,7 @@ export function Landing() {
               <Mail className="size-3.5" /> indigoatelier@zohomail.eu
             </a>
             <a
-              href="https://linkedin.com/in/sabina-pana-95452b367"
+              href="https://www.linkedin.com/in/sabina-pana-95452b367"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 opacity-80 hover:opacity-100 hover:text-foreground transition-opacity"
@@ -294,12 +294,18 @@ export function Landing() {
             >
               <Linkedin className="size-3.5" /> LinkedIn
             </a>
-            <a href="/admin" className="opacity-60 hover:opacity-100 hover:text-foreground transition-opacity">Admin</a>
+            <Link
+              to="/privacy"
+              className="opacity-80 hover:opacity-100 hover:text-foreground transition-opacity"
+            >
+              {lang === "fr" ? "Confidentialité" : lang === "en" ? "Privacy" : "Confidențialitate"}
+            </Link>
           </div>
         </div>
       </footer>
 
       <ChatWidget />
+      <CookieBanner />
     </div>
   );
 }
