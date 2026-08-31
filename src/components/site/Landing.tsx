@@ -284,7 +284,7 @@ export function Landing() {
               <Mail className="size-3.5" /> indigoatelier@zohomail.eu
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://linkedin.com/in/sabina-pana-95452b367"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 opacity-80 hover:opacity-100 hover:text-foreground transition-opacity"
