@@ -17,7 +17,13 @@ export const Route = createFileRoute("/")({
         content:
           "Site-uri rafinate, SEO clasic și AIO (AI Optimization) pentru afaceri mici și creativi.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://artful-launchpad-hub.lovable.app/" },
+      { property: "og:image", content: "https://artful-launchpad-hub.lovable.app/og-cover.jpg" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://artful-launchpad-hub.lovable.app/og-cover.jpg" },
     ],
+    links: [{ rel: "canonical", href: "https://artful-launchpad-hub.lovable.app/" }],
   }),
   component: Index,
 });
