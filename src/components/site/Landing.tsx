@@ -1,10 +1,12 @@
+import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { LangToggle } from "./LangToggle";
 import { ChatWidget } from "./ChatWidget";
+import { CookieBanner } from "./CookieBanner";
 import { ArrowUpRight, Sparkles, Globe, ShoppingBag, Search, Bot, Palette, Wrench, Linkedin, Mail } from "lucide-react";
 
 export function Landing() {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
   const services = [
     { icon: Globe, k: "s1" },
