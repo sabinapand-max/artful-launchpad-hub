@@ -64,7 +64,7 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "fixed bottom-6 right-6 z-50 flex h-14 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background shadow-xl shadow-foreground/20 transition-transform hover:scale-105",
+          "fixed bottom-6 right-6 z-[60] flex h-14 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background shadow-xl shadow-foreground/20 transition-transform hover:scale-105",
         )}
         aria-label={t("chat.open")}
       >
@@ -74,7 +74,7 @@ export function ChatWidget() {
 
       <div
         className={cn(
-          "fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm origin-bottom-right overflow-hidden rounded-2xl border border-border bg-card shadow-2xl shadow-foreground/10 transition-all duration-300",
+          "fixed bottom-24 right-6 z-[60] w-[calc(100vw-3rem)] max-w-sm origin-bottom-right overflow-hidden rounded-2xl border border-border bg-card shadow-2xl shadow-foreground/10 transition-all duration-300",
           open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0",
         )}
       >
