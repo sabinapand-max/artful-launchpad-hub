@@ -2,7 +2,8 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
 const leadSchema = z.object({
-  contact: z.string().trim().min(5).max(200),
+  email: z.string().trim().email().max(200),
+  phone: z.string().trim().max(40).optional().or(z.literal("")),
   services: z.string().trim().min(2).max(2000),
   lang: z.string().trim().max(8).optional(),
   userAgent: z.string().trim().max(500).optional(),
@@ -11,9 +12,14 @@ const leadSchema = z.object({
 export const submitLead = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => leadSchema.parse(input))
   .handler(async ({ data }) => {
+    const phone = data.phone?.trim() ? data.phone.trim() : null;
+    const contact = phone ? `${data.email} · ${phone}` : data.email;
+
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin.from("leads").insert({
-      contact: data.contact,
+      contact,
+      email: data.email,
+      phone,
       services: data.services,
       lang: data.lang ?? null,
       user_agent: data.userAgent ?? null,
@@ -28,7 +34,7 @@ export const submitLead = createServerFn({ method: "POST" })
     try {
       const { createNotionLeadPage } = await import("./notion.server");
       await createNotionLeadPage({
-        contact: data.contact,
+        contact,
         services: data.services,
         lang: data.lang,
         userAgent: data.userAgent,
@@ -40,4 +46,3 @@ export const submitLead = createServerFn({ method: "POST" })
 
     return { ok: true as const };
   });
-

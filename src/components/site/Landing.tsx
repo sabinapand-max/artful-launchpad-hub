@@ -170,8 +170,14 @@ export function Landing() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {(["t1", "t2", "t3", "t4"] as const).map((k) => {
             const popular = k === "t3";
-            const amounts: Record<string, number> = { t1: 99, t2: 299, t3: 599, t4: 800 };
-            const paypalUrl = `https://paypal.me/PLACEHOLDER/${amounts[k]}EUR`;
+            const paypalLinks: Record<string, string | null> = {
+              t1: "https://py.pl/17MmSX",
+              t2: "https://py.pl/2I3FOF",
+              t3: "https://py.pl/Wa5Ak6LtEM",
+              t4: null,
+            };
+            const paypalUrl = paypalLinks[k];
+
             return (
               <div
                 key={k}
@@ -207,16 +213,20 @@ export function Landing() {
                       : "bg-foreground text-background")
                   }
                 >
-                  {t("pricing.cta")} <ArrowUpRight className="size-4" />
+                  {k === "t4" ? t("pricing.contact") : t("pricing.cta")}{" "}
+                  <ArrowUpRight className="size-4" />
                 </a>
-                <a
-                  href={paypalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center justify-center gap-1 text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-                >
-                  {t("pricing.paypal")} <ArrowUpRight className="size-3" />
-                </a>
+                {paypalUrl && (
+                  <a
+                    href={paypalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center justify-center gap-1 text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                  >
+                    {t("pricing.paypal")} <ArrowUpRight className="size-3" />
+                  </a>
+                )}
+
               </div>
             );
           })}

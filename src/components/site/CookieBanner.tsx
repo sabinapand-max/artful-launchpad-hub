@@ -38,8 +38,9 @@ export function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 px-4 pb-4">
-      <div className="mx-auto flex max-w-3xl flex-col items-start gap-3 rounded-2xl border border-border bg-card/95 p-4 shadow-lg backdrop-blur sm:flex-row sm:items-center sm:gap-5">
+    <div className="pointer-events-none fixed inset-x-0 bottom-0 z-40 px-4 pb-4">
+      <div className="pointer-events-auto mx-auto flex max-w-3xl flex-col items-start gap-3 rounded-2xl border border-border bg-card/95 p-4 shadow-lg backdrop-blur sm:flex-row sm:items-center sm:gap-5">
+
         <p className="text-xs leading-relaxed text-muted-foreground">
           {c.text}{" "}
           <Link to="/privacy" className="underline underline-offset-4 hover:text-foreground">

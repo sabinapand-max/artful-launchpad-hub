@@ -14,10 +14,12 @@ export function ChatWidget() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [contact, setContact] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [services, setServices] = useState("");
 
-  const valid = contact.trim().length >= 5 && services.trim().length >= 2;
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
+  const valid = emailOk && services.trim().length >= 2;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -27,7 +29,8 @@ export function ChatWidget() {
     try {
       const res = await submit({
         data: {
-          contact: contact.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
           services: services.trim(),
           lang,
           userAgent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
@@ -37,10 +40,13 @@ export function ChatWidget() {
         setErrorMsg(res.error);
         return;
       }
+
       setSent(true);
       setTimeout(() => {
         setSent(false);
-        setContact("");
+        setEmail("");
+        setPhone("");
+
         setServices("");
         setOpen(false);
       }, 2400);
@@ -58,7 +64,7 @@ export function ChatWidget() {
       <button
         onClick={() => setOpen((o) => !o)}
         className={cn(
-          "fixed bottom-6 right-6 z-50 flex h-14 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background shadow-xl shadow-foreground/20 transition-transform hover:scale-105",
+          "fixed bottom-6 right-6 z-[60] flex h-14 items-center gap-2 rounded-full bg-foreground px-5 text-sm font-medium text-background shadow-xl shadow-foreground/20 transition-transform hover:scale-105",
         )}
         aria-label={t("chat.open")}
       >
@@ -68,7 +74,7 @@ export function ChatWidget() {
 
       <div
         className={cn(
-          "fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm origin-bottom-right overflow-hidden rounded-2xl border border-border bg-card shadow-2xl shadow-foreground/10 transition-all duration-300",
+          "fixed bottom-24 right-6 z-[60] w-[calc(100vw-3rem)] max-w-sm origin-bottom-right overflow-hidden rounded-2xl border border-border bg-card shadow-2xl shadow-foreground/10 transition-all duration-300",
           open ? "scale-100 opacity-100" : "pointer-events-none scale-95 opacity-0",
         )}
       >
@@ -91,13 +97,27 @@ export function ChatWidget() {
                 {t("chat.email")}
               </label>
               <input
-                value={contact}
-                onChange={(e) => setContact(e.target.value.slice(0, 120))}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value.slice(0, 120))}
                 placeholder={t("chat.emailPh")}
                 className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent"
                 required
               />
             </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t("chat.phone")}
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value.slice(0, 40))}
+                placeholder={t("chat.phonePh")}
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+              />
+            </div>
+
             <div>
               <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("chat.services")}
