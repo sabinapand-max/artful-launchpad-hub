@@ -95,13 +95,27 @@ export function ChatWidget() {
                 {t("chat.email")}
               </label>
               <input
-                value={contact}
-                onChange={(e) => setContact(e.target.value.slice(0, 120))}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value.slice(0, 120))}
                 placeholder={t("chat.emailPh")}
                 className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent"
                 required
               />
             </div>
+            <div>
+              <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                {t("chat.phone")}
+              </label>
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value.slice(0, 40))}
+                placeholder={t("chat.phonePh")}
+                className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-accent focus:ring-1 focus:ring-accent"
+              />
+            </div>
+
             <div>
               <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 {t("chat.services")}
