@@ -213,16 +213,20 @@ export function Landing() {
                       : "bg-foreground text-background")
                   }
                 >
-                  {t("pricing.cta")} <ArrowUpRight className="size-4" />
+                  {k === "t4" ? t("pricing.contact") : t("pricing.cta")}{" "}
+                  <ArrowUpRight className="size-4" />
                 </a>
-                <a
-                  href={paypalUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-3 inline-flex items-center justify-center gap-1 text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-                >
-                  {t("pricing.paypal")} <ArrowUpRight className="size-3" />
-                </a>
+                {paypalUrl && (
+                  <a
+                    href={paypalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-flex items-center justify-center gap-1 text-xs text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+                  >
+                    {t("pricing.paypal")} <ArrowUpRight className="size-3" />
+                  </a>
+                )}
+
               </div>
             );
           })}
