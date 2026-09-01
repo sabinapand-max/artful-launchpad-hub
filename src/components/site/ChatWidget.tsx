@@ -14,10 +14,12 @@ export function ChatWidget() {
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [contact, setContact] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [services, setServices] = useState("");
 
-  const valid = contact.trim().length >= 5 && services.trim().length >= 2;
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
+  const valid = emailOk && services.trim().length >= 2;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -27,7 +29,8 @@ export function ChatWidget() {
     try {
       const res = await submit({
         data: {
-          contact: contact.trim(),
+          email: email.trim(),
+          phone: phone.trim(),
           services: services.trim(),
           lang,
           userAgent: typeof navigator !== "undefined" ? navigator.userAgent : undefined,
@@ -37,6 +40,7 @@ export function ChatWidget() {
         setErrorMsg(res.error);
         return;
       }
+
       setSent(true);
       setTimeout(() => {
         setSent(false);
