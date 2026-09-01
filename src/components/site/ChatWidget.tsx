@@ -44,7 +44,9 @@ export function ChatWidget() {
       setSent(true);
       setTimeout(() => {
         setSent(false);
-        setContact("");
+        setEmail("");
+        setPhone("");
+
         setServices("");
         setOpen(false);
       }, 2400);
