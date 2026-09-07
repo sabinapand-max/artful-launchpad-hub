@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/lib/i18n";
 import { LangToggle } from "./LangToggle";
-import { ChatWidget } from "./ChatWidget";
+import { ChatWidget, openChat } from "./ChatWidget";
 import { CookieBanner } from "./CookieBanner";
 import { ArrowUpRight, Sparkles, Globe, ShoppingBag, Search, Bot, Palette, Wrench, Linkedin, Mail } from "lucide-react";
 
@@ -200,12 +200,13 @@ export function Landing() {
                 <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                   {t(`pricing.${k}.desc`)}
                 </p>
-                <a
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector<HTMLButtonElement>("[aria-label]")?.click();
-                  }}
+                <button
+                  type="button"
+                  onClick={() =>
+                    openChat(
+                      `${t(`pricing.${k}.name`)} (${t(`pricing.${k}.price`)}) — ${t(`pricing.${k}.desc`)}`,
+                    )
+                  }
                   className={
                     "mt-8 inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-opacity hover:opacity-90 " +
                     (popular
@@ -215,7 +216,7 @@ export function Landing() {
                 >
                   {k === "t4" ? t("pricing.contact") : t("pricing.cta")}{" "}
                   <ArrowUpRight className="size-4" />
-                </a>
+                </button>
                 {paypalUrl && (
                   <a
                     href={paypalUrl}
@@ -269,7 +270,7 @@ export function Landing() {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              document.querySelector<HTMLButtonElement>("[aria-label]")?.click();
+              openChat();
             }}
             className="mt-10 inline-flex items-center gap-2 rounded-full bg-accent px-7 py-4 text-sm font-medium text-accent-foreground hover:opacity-90"
           >
