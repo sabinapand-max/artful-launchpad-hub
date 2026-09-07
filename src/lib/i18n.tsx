@@ -304,9 +304,6 @@ function detectInitialLang(): Lang {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     if (stored === "ro" || stored === "en" || stored === "fr") return stored;
   } catch {}
-  const nav = (navigator.language || "").toLowerCase();
-  if (nav.startsWith("fr")) return "fr";
-  if (nav.startsWith("ro")) return "ro";
   return "en";
 }
 
