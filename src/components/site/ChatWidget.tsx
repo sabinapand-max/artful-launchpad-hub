@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { submitLead } from "@/lib/leads.functions";
 
+export const OPEN_CHAT_EVENT = "atelier:open-chat";
 
+export function openChat(prefill?: string) {
+  window.dispatchEvent(new CustomEvent(OPEN_CHAT_EVENT, { detail: { prefill } }));
+}
 
 export function ChatWidget() {
   const { t, lang } = useI18n();
@@ -17,6 +21,18 @@ export function ChatWidget() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [services, setServices] = useState("");
+
+  useEffect(() => {
+    function handler(e: Event) {
+      const prefill = (e as CustomEvent<{ prefill?: string }>).detail?.prefill;
+      if (prefill) setServices(prefill);
+      setSent(false);
+      setErrorMsg(null);
+      setOpen(true);
+    }
+    window.addEventListener(OPEN_CHAT_EVENT, handler);
+    return () => window.removeEventListener(OPEN_CHAT_EVENT, handler);
+  }, []);
 
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
   const valid = emailOk && services.trim().length >= 2;
