@@ -5,17 +5,17 @@ import { Landing } from "@/components/site/Landing";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Atelier — Site-uri, SEO & AIO pentru afaceri mici" },
+      { title: "Atelier — Websites, SEO & AIO for small businesses" },
       {
         name: "description",
         content:
-          "Studio digital care construiește site-uri rafinate și optimizate pentru SEO și AI, pentru antreprenori, freelanceri și creativi.",
+          "A digital studio crafting refined, SEO- and AI-optimized websites for small businesses, solopreneurs, freelancers and creatives.",
       },
-      { property: "og:title", content: "Atelier — Site-uri, SEO & AIO" },
+      { property: "og:title", content: "Atelier — Websites, SEO & AIO" },
       {
         property: "og:description",
         content:
-          "Site-uri rafinate, SEO clasic și AIO (AI Optimization) pentru afaceri mici și creativi.",
+          "Refined websites, classic SEO and AIO (AI Optimization) for small businesses and creatives.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://artful-launchpad-hub.lovable.app/" },
