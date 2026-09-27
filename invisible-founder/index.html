@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="The Invisible Founder Check — a 3-minute clarity instrument for founders whose work is harder to find than it should be.">
+<title>The Invisible Founder Check — Indigo Atelier</title>
+<style>
+:root{
+  --ink:#17142a; --indigo:#40308c; --violet:#6c55c9; --plum:#8a5a8c;
+  --cream:#fbf8f2; --paper:#ffffff; --gold:#d9ad45; --muted:#6f6a7b;
+  --line:#e6e0ec; --good:#3b7a62;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#f8f4fb 0%,var(--cream) 45%,#fff 100%);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55}
+a{color:inherit}
+.wrap{max-width:900px;margin:0 auto;padding:24px 20px 64px}
+header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 0 38px}
+.brand{font-weight:800;letter-spacing:.02em;color:var(--indigo)}
+.badge{font-size:.78rem;color:var(--muted);border:1px solid var(--line);padding:7px 11px;border-radius:999px;background:#fff8}
+.hero{padding:46px 0 34px}
+.kicker{font-size:.84rem;letter-spacing:.12em;text-transform:uppercase;color:var(--plum);font-weight:800}
+h1{font-size:clamp(2.5rem,7vw,5.4rem);line-height:.98;letter-spacing:-.055em;max-width:800px;margin:14px 0 22px}
+.lede{font-size:clamp(1.1rem,2.6vw,1.35rem);max-width:690px;color:#4c465a}
+.note{display:inline-flex;gap:8px;align-items:center;margin-top:18px;color:var(--muted);font-size:.92rem}
+.card{background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:28px;box-shadow:0 18px 50px rgba(58,39,94,.08);padding:26px}
+.hidden{display:none!important}
+.progress-row{display:flex;justify-content:space-between;color:var(--muted);font-size:.9rem;margin-bottom:11px}
+.progress{height:8px;background:#eee9f3;border-radius:999px;overflow:hidden}
+.progress>span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--indigo),var(--violet));border-radius:999px;transition:width .25s ease}
+.question{font-size:clamp(1.3rem,3vw,1.75rem);line-height:1.2;margin:28px 0 20px;letter-spacing:-.02em}
+.answers{display:grid;gap:10px}
+.answer{display:block;width:100%;text-align:left;border:1px solid #ded8e7;background:#fff;border-radius:18px;padding:16px 17px;font:inherit;color:var(--ink);cursor:pointer;transition:.16s}
+.answer:hover,.answer:focus-visible{border-color:#9c88df;transform:translateY(-1px);outline:none;box-shadow:0 7px 20px rgba(75,49,130,.08)}
+.meta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.pill{background:#f1edf8;border-radius:999px;padding:7px 11px;font-size:.82rem;color:#5b536d}
+.result h2{font-size:clamp(2rem,5vw,3.25rem);line-height:1.03;letter-spacing:-.04em;margin:8px 0 14px}
+.result .signal{color:var(--indigo);font-weight:800}
+.result p{font-size:1.05rem;color:#514b5e}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}
+.mini{padding:17px;border-radius:20px;background:#faf8fd;border:1px solid var(--line)}
+.mini strong{display:block;margin-bottom:5px}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:13px 17px;text-decoration:none;font-weight:750;border:1px solid var(--line);cursor:pointer}
+.btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.btn.secondary{background:#fff}
+.footer{margin-top:42px;color:var(--muted);font-size:.9rem;display:grid;gap:8px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.card{padding:21px}.hero{padding-top:25px}header{padding-bottom:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">Indigo Atelier</div>
+  <div class="badge">FREE · ABOUT 3 MINUTES</div>
+</header>
+
+<section class="hero">
+  <div class="kicker">The Invisible Founder Check</div>
+  <h1>Your ideas are not the problem.</h1>
+  <p class="lede">Find the signal that gets lost between what you make and what people — or AI — understand about it.</p>
+  <div class="note">✦ Immediate result · ✦ No login · ✦ Nothing sent to a server</div>
+</section>
+
+<section id="quiz" class="card">
+  <div class="progress-row"><span id="progressText">Question 1 of 8</span><span id="percent">0%</span></div>
+  <div class="progress"><span id="bar"></span></div>
+  <div id="question" class="question"></div>
+  <div id="answers" class="answers"></div>
+  <div class="meta"><span class="pill">Audience signal</span><span class="pill">Offer signal</span><span class="pill">Trust signal</span></div>
+</section>
+
+<section id="result" class="card result hidden">
+  <div class="kicker">Your first signal</div>
+  <h2>The weakest link is your <span class="signal" id="signalName"></span> signal.</h2>
+  <p id="resultCopy"></p>
+  <div class="grid">
+    <div class="mini"><strong>Audience</strong><span id="audScore"></span></div>
+    <div class="mini"><strong>Offer</strong><span id="offerScore"></span></div>
+    <div class="mini"><strong>Trust</strong><span id="trustScore"></span></div>
+  </div>
+  <p><strong>One useful next move:</strong> <span id="nextMove"></span></p>
+  <div class="cta">
+    <button class="btn primary" onclick="restart()">Take it again</button>
+    <button class="btn secondary" onclick="window.print()">Save this result</button>
+  </div>
+</section>
+
+<footer class="footer">
+  <div><strong>What visibility actually needs.</strong></div>
+  <div>Three signals. Not another content treadmill.</div>
+  <div><strong>Audience:</strong> Can the right person recognise themselves before their attention moves on?</div>
+  <div><strong>Offer:</strong> Can they see the useful change and the safest first step?</div>
+  <div><strong>Trust:</strong> Does enough of your real expertise travel when you are not in the room?</div>
+  <div style="margin-top:10px">This is not a diagnosis or a productivity score. It is a small clarity instrument for neurodivergent and overwhelmed solopreneurs.</div>
+</footer>
+</div>
+
+<script>
+const questions = [
+ {t:"Could a stranger tell, in one sentence, exactly who your work is for?", c:"aud", a:["Yes, clearly","Sometimes / partly","Not yet"]},
+ {t:"When the right person lands on your profile or homepage, do they recognise themselves quickly?", c:"aud", a:["Usually","Sometimes","Not really"]},
+ {t:"Can someone understand what useful change you help create — without a long explanation?", c:"off", a:["Yes","Partly","Not yet"]},
+ {t:"Is there an obvious first step for someone who wants to work with you?", c:"off", a:["Yes, and it is easy to find","It exists but is buried","People usually need to ask me"]},
+ {t:"Can a cautious buyer see evidence that you know what you are doing?", c:"trust", a:["Yes, in public","Some of it","Mostly only in conversation"]},
+ {t:"Does the same core message travel across your bio, offer and content?", c:"trust", a:["Mostly yes","It shifts around","It changes a lot"]},
+ {t:"Could an AI assistant accurately describe who you help and why your work is useful?", c:"aud", a:["Probably","It would get some of it","It would have to guess"]},
+ {t:"Can you explain your work without spending more energy than the visibility is worth?", c:"trust", a:["Yes","Sometimes","Not consistently"]}
+];
+
+let i=0, scores={aud:0,off:0,trust:0};
+function render(){
+ const q=questions[i];
+ document.getElementById("question").textContent=q.t;
+ const box=document.getElementById("answers"); box.innerHTML="";
+ q.a.forEach((label,idx)=>{
+   const b=document.createElement("button"); b.className="answer"; b.textContent=label;
+   b.onclick=()=>answer(2-idx); box.appendChild(b);
+ });
+ document.getElementById("progressText").textContent=`Question ${i+1} of ${questions.length}`;
+ const pct=Math.round((i/questions.length)*100);
+ document.getElementById("percent").textContent=pct+"%";
+ document.getElementById("bar").style.width=pct+"%";
+}
+function answer(points){
+ scores[questions[i].c]+=points; i++;
+ if(i<questions.length){render();return;}
+ showResult();
+}
+function showResult(){
+ document.getElementById("quiz").classList.add("hidden");
+ document.getElementById("result").classList.remove("hidden");
+ const labels={aud:"Audience",off:"Offer",trust:"Trust"};
+ const min=Math.min(scores.aud,scores.off,scores.trust);
+ const weakest=Object.keys(scores).find(k=>scores[k]===min);
+ document.getElementById("signalName").textContent=labels[weakest];
+ document.getElementById("audScore").textContent=scores.aud+" / 6";
+ document.getElementById("offerScore").textContent=scores.off+" / 6";
+ document.getElementById("trustScore").textContent=scores.trust+" / 6";
+ const copy={
+   aud:"People may value your work once they understand it, but the entry signal is making them work too hard. Clarify the person, moment and problem before creating more content.",
+   off:"Your range may be larger than the doorway. Make the first useful outcome painfully clear, and make the first step smaller than the full service.",
+   trust:"Your expertise may be real but still travel mostly through you. Put one small piece of proof, process or evidence where a stranger can encounter it."
+ };
+ const next={
+   aud:"Write one sentence: “I help [person] who [recognisable situation] to [credible outcome].” Then test it somewhere public.",
+   off:"Choose one smallest useful outcome someone could buy or ask for, and put that doorway in one obvious place.",
+   trust:"Publish one bounded proof receipt: a before/after, example, demonstration, repeated question, or short story of a correction."
+ };
+ document.getElementById("resultCopy").textContent=copy[weakest];
+ document.getElementById("nextMove").textContent=next[weakest];
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){i=0;scores={aud:0,off:0,trust:0};document.getElementById("result").classList.add("hidden");document.getElementById("quiz").classList.remove("hidden");render();}
+render();
+</script>
+</body>
+</html>
